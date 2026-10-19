@@ -1,88 +1,68 @@
 # terraform-volcenginecc-security-group
 
-Terraform Module scaffold for the VolcengineCC provider.
+## 1. Overview
 
-> Status: Scaffold only. The Terraform implementation for this repository is
-> not available yet, and this repository is not ready for production use.
+Terraform module for managing Volcengine SECURITY GROUP resources with the `volcenginecc` provider. The caller owns provider authentication, region configuration, and external resources passed by ID.
 
-## Overview
+## 2. Usage
 
-This repository reserves the module name `volcengine/security-group/volcenginecc`.
+```hcl
+module "security_group" {
+  source  = "terraform-volcenginecc-modules/security-group/volcenginecc"
+  version = "~> 1.0"
 
-The module is intended to provide a reusable Terraform abstraction for the
-`security-group` scenario using the `volcengine/volcenginecc` provider.
+  # Set the required module inputs for your environment.
+}
+```
 
-Current scope:
+## 3. Examples
 
-- Repository and module scaffold only.
-- No Terraform resources or data sources are currently managed.
-- No production-readiness or real-cloud validation claim is made.
+- `basic`: independently runnable basic configuration.
+- `complete`: independently runnable complete configuration.
 
-## Usage
-
-The module implementation is not available yet. A runnable configuration will
-be added together with the first implementation release.
-
-Provider authentication and region configuration must be supplied by the
-caller. Do not commit credentials, access keys, secrets, Terraform state, or
-plan files.
-
-## Examples
-
-Examples will be added when the module implementation is available.
-
-Planned examples:
-
-- `examples/basic`
-- `examples/complete`
-
-## Requirements
+## 4. Requirements
 
 | Name | Version |
 |---|---|
-| Terraform | To be defined with the first implementation |
-| `volcengine/volcenginecc` | To be defined with the first implementation |
+| Terraform | `>= 1.5.7` |
+| OpenTofu | `>= 1.11.8` |
 
-## Providers
+## 5. Providers
 
 | Name | Source |
 |---|---|
 | `volcenginecc` | `volcengine/volcenginecc` |
 
-## Resources
+## 6. Resources
 
-No resources or data sources are currently managed.
+| Name | Description |
+|---|---|
+| `volcenginecc_vpc_security_group` | Module-defined volcenginecc_vpc_security_group. |
 
-The resource inventory will be documented before the first release.
+## 7. Inputs
 
-## Inputs
+| Name | Description |
+|---|---|
+| `vpc_id` | Module-defined vpc_id. |
+| `security_group_name` | Module-defined security_group_name. |
+| `description` | Module-defined description. |
+| `project_name` | Module-defined project_name. |
+| `ingress_rules` | Module-defined ingress_rules. |
+| `egress_rules` | Module-defined egress_rules. |
+| `system_default_egress_rules` | Module-defined system_default_egress_rules. |
+| `allow_public_management_access` | Module-defined allow_public_management_access. |
+| `tags` | Module-defined tags. |
 
-No input variables are currently defined.
+## 8. Outputs
 
-All inputs will document their type, default value, required status,
-validation, ownership, and replacement behavior when implemented.
+| Name | Description |
+|---|---|
+| `security_group_id` | Module-defined security_group_id. |
+| `security_group_name` | Module-defined security_group_name. |
+| `vpc_id` | Module-defined vpc_id. |
 
-## Outputs
+## 9. Notes
 
-No outputs are currently defined.
-
-Outputs will document their exact semantics when implemented.
-
-## Notes
-
-- This repository is currently a scaffold and is not a publishable functional
-  module.
-- Real-cloud validation has not been performed.
-- Provider limitations and unsupported scenarios will be documented before
-  release.
-- Resource ownership, import behavior, replacement behavior, cost risks, and
-  cleanup procedures must be documented before the first release.
-
-## Security
-
-Please report security issues according to the [Security Policy](SECURITY.md).
-Do not disclose security vulnerabilities through public issues.
-
-## License
-
-This project is licensed under the MIT License. See [LICENSE](LICENSE).
+- Configure credentials using supported provider mechanisms; do not put access keys in module files.
+- Review replacement behavior and provider constraints before applying changes.
+- Run `terraform plan` after apply and confirm that the second plan has no changes.
